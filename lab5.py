@@ -1,67 +1,151 @@
 #1
 import re
-pattern = r'\bab*\b'
-text = input("Enter a string: ")
-matches = re.findall(pattern, text)
-print("Matched words:", matches)
+pattern = r"^ab*$"
+file_path = "/Users/inzhuaitakhyn/all-labs-2/myfile.txt"
+try:
+    with open(file_path, "r") as file:
+        content = file.read().strip() 
+    if re.fullmatch(pattern, content):
+        print("The string matches the pattern!")
+    else:
+        print("The string does NOT match the pattern.")
+
+except FileNotFoundError:
+    print(f"Error: File '{file_path}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
 #2
 import re
-text= input("Enter a string: ")
-pattern = r"ab{2,3}"
-words = text.split()
-matched_words = [word for word in words if re.fullmatch(pattern, word)]
-print("Matched words:", matched_words)
+file_path = "/Users/inzhuaitakhyn/all-labs-2/myfile.txt"
+pattern = r"^ab{2,3}$" 
+try:
+    with open(file_path, "r") as file:
+        content = file.read().strip()  
+    words = content.split()  
+    for word in words:
+        if re.fullmatch(pattern, word):
+            print(f"'{word}' matches the pattern!")
+        else:
+            print(f"'{word}' does NOT match the pattern.")
+
+except FileNotFoundError:
+    print(f"Error: File '{file_path}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
 #3
 import re
-pattern = r'\b[a-z]+(?:_[a-z]+)+\b' 
-text = input("Enter a string: ")
-matches = re.findall(pattern, text)
-print("Matched words:", matches)
+file_path = "/Users/inzhuaitakhyn/all-labs-2/myfile.txt"  
+pattern = r"\b[a-z]+_[a-z]+\b"  
+try:
+    with open(file_path, "r") as file:
+        content = file.read()  
+    matches = re.findall(pattern, content)  
+    if matches:
+        print("Matches found:", matches)
+    else:
+        print("No matches found.")
+
+except FileNotFoundError:
+    print(f"Error: File '{file_path}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
 #4
 import re
-pattern = r'\b[A-Z][a-z]+\b'
-text = input("Enter a string: ")
-matches = re.findall(pattern, text)
-print("Matched words:", matches)
+file_path = "/Users/inzhuaitakhyn/all-labs-2/myfile.txt"  
+pattern = r"\b[A-Z][a-z]+\b"  
+try:
+    with open(file_path, "r") as file:
+        content = file.read()  
+    matches = re.findall(pattern, content)  
+    if matches:
+        print("Matches found:", matches)
+    else:
+        print("No matches found.")
+except FileNotFoundError:
+    print(f"Error: File '{file_path}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
 #5
 import re
-pattern = r'\ba[^ ]*b\b'  
-text = input("Enter a string: ")
-matches = re.findall(pattern, text)
-print("Matched words:", matches)
+file_path = "/Users/inzhuaitakhyn/all-labs-2/myfile.txt"  
+pattern = r"^a.*b$"  
+try:
+    with open(file_path, "r") as file:
+        lines = file.readlines() 
+    matches = [line.strip() for line in lines if re.fullmatch(pattern, line.strip())]
+    if matches:
+        print("Matches found:", matches)
+    else:
+        print("No matches found.")
+except FileNotFoundError:
+    print(f"Error: File '{file_path}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
 #6
 import re
-text = input("Enter a string: ")
-modified_text = re.sub(r'[ ,.]', ':', text)
-print("Modified string:", modified_text)
+file_path = "/Users/inzhuaitakhyn/all-labs-2/myfile.txt"
+try:
+    with open(file_path, "r") as file:
+        content = file.read()  
+    modified_content = re.sub(r"[ ,.]", ":", content)
+    print("Modified content:")
+    print(modified_content)
+except FileNotFoundError:
+    print(f"Error: File '{file_path}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
 #7
 import re
-def snake_to_camel(snake_str):
-    words = snake_str.split('_')  
-    return words[0] + ''.join(word.capitalize() for word in words[1:])  
-text = input("Enter a snake_case string: ")
-matches = re.findall(r'\b[a-z]+(?:_[a-z]+)*\b', text) 
-converted = [snake_to_camel(match) for match in matches]
-print("Converted words:", converted)
+file_path = "/Users/inzhuaitakhyn/all-labs-2/myfile.txt"
+try:
+    with open(file_path, "r") as file:
+        content = file.read().strip()  
+    def snake_to_camel(snake_str):
+        return re.sub(r'_([a-z])', lambda match: match.group(1).upper(), snake_str)
+    camel_case_content = snake_to_camel(content)
+    print("Converted to CamelCase:")
+    print(camel_case_content)
+except FileNotFoundError:
+    print(f"Error: File '{file_path}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
 #8
 import re
-def split_at_uppercase(s):
-    return re.findall(r'[A-Z][a-z]*', s)  
-text = input("Enter a string: ")
-words = split_at_uppercase(text)
-print("Splitted words:", words)
+file_path = "/Users/inzhuaitakhyn/all-labs-2/myfile.txt"
+try:
+    with open(file_path, "r") as file:
+        content = file.read().strip() 
+    split_result = re.split(r'(?=[A-Z])', content)
+    print("Split string at uppercase letters:")
+    print(split_result)
+except FileNotFoundError:
+    print(f"Error: File '{file_path}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
 #9
 import re
-def insert_spaces(s):
-    return re.sub(r'([a-z])([A-Z])', r'\1 \2', s)  
-text = input("Enter a string: ")
-modified_text = insert_spaces(text)
-print("Modified string:", modified_text)
+file_path = "/Users/inzhuaitakhyn/all-labs-2/myfile.txt"
+try:
+    with open(file_path, "r") as file:
+        content = file.read().strip() 
+    modified_content = re.sub(r'(?<!^)(?=[A-Z])', ' ', content)
+    print("Modified string with spaces:")
+    print(modified_content)
+except FileNotFoundError:
+    print(f"Error: File '{file_path}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
 #10
 import re
-def camel_to_snake(s):
-    snake_case = re.sub(r'([a-z0-9])([A-Z])', r'\1_\2', s)
-    return snake_case.lower() 
-text = input("Enter a CamelCase string: ")
-converted_text = camel_to_snake(text)
-print("Converted string:", converted_text)
+file_path = "/Users/inzhuaitakhyn/all-labs-2/myfile.txt"
+try:
+    with open(file_path, "r") as file:
+        content = file.read().strip() 
+    snake_case_content = re.sub(r'(?<!^)(?=[A-Z])', '_', content).lower()
+    print("Converted string (snake_case):")
+    print(snake_case_content)
+
+except FileNotFoundError:
+    print(f"Error: File '{file_path}' not found.")
+except Exception as e:
+    print(f"An error occurred: {e}")
